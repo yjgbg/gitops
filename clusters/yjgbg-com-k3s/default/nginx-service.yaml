@@ -1,0 +1,22 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: index
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: docker.m.daocloud.io/nginx:latest
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: 
+          request:
+            cpu: 100m
+            memory: 100m
