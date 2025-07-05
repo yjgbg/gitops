@@ -5302,6 +5302,14 @@ spec:
             resourceFieldRef:
               containerName: manager
               resource: limits.memory
+        - name: https_proxy
+          value: http://192.168.31.200:7890
+        - name: http_proxy
+          value: http://192.168.31.200:7890
+        - name: all_proxy
+          value: http://192.168.31.200:7890
+        - name: no_proxy
+          value: 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,*.local,localhost,127.0.0.1
         image: ghcr.io/fluxcd/source-controller:v1.6.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
