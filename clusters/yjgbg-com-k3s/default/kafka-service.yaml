@@ -12,8 +12,8 @@ spec:
       - image: ghcr.io/kafbat/kafka-ui:latest
         name: kafka-ui
         env:
-        - name: DYNAMIC_CONFIG_ENABLED
-          value: true
+        - name: "DYNAMIC_CONFIG_ENABLED"
+          value: "true"
         ports:
         - containerPort: 8080
           protocol: TCP
