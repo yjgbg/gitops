@@ -1,0 +1,22 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: docker.m.daocloud.io/provectuslabs/kafka-ui:latest
+        name: kafka-ui
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: 
+          requests:
+            cpu: 100m
+            memory: 100m
