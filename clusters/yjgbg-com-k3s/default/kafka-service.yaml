@@ -1,3 +1,5 @@
+
+---
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
@@ -9,6 +11,9 @@ spec:
       containers:
       - image: docker.m.daocloud.io/provectuslabs/kafka-ui:latest
         name: kafka-ui
+        env:
+        - name: DYNAMIC_CONFIG_ENABLED
+          value: true
         ports:
         - containerPort: 8080
           protocol: TCP
