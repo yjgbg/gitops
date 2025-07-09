@@ -9,7 +9,7 @@ spec:
   template:
     spec:
       containers:
-      - image: docker.m.daocloud.io/provectuslabs/kafka-ui:latest
+      - image: ghcr.io/kafbat/kafka-ui:latest
         name: kafka-ui
         env:
         - name: DYNAMIC_CONFIG_ENABLED
