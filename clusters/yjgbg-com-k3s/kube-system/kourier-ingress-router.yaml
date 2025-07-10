@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kourier
+  namespace: kube-system
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: HostRegexp(`{domain:.+\.yjgbg\.com}`)
+    kind: Rule
+    priority: 1
+    services:
+    - name: kourier-internal
+      kind: Service
+      namespace: kourier-system
+      port: 80
