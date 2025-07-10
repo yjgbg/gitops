@@ -10,3 +10,21 @@ spec:
   selector:
     app.kubernetes.io/instance: traefik-kube-system
     app.kubernetes.io/name: traefik
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-traefik
+  namespace: kube-system
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: Host(`traefik.yjgbg.com`)
+    kind: Rule
+    priority: 2
+    services:
+    - name: traefik-traefik
+      kind: Service
+      namespace: kube-system
+      port: 80
