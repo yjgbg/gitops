@@ -14,4 +14,4 @@ spec:
     - name: kourier-internal
       kind: Service
       namespace: kourier-system
-      port: 8081
+      port: http2
