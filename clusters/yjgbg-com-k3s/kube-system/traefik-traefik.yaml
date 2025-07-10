@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   ports:
-  - port: 80
+  - port: 8080
     targetPort: traefik
   selector:
     app.kubernetes.io/instance: traefik-kube-system
@@ -27,4 +27,4 @@ spec:
     - name: traefik-traefik
       kind: Service
       namespace: kube-system
-      port: 80
+      port: 8080
