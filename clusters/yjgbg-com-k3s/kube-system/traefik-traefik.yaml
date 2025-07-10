@@ -17,7 +17,6 @@ metadata:
   name: traefik-traefik
   namespace: kube-system
 spec:
-  allowCrossNamespace: true
   entryPoints:
   - web
   routes:
