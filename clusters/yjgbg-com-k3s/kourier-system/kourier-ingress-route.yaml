@@ -7,11 +7,11 @@ spec:
   entryPoints:
   - web
   routes:
-  - match: HostRegexp(`{domain:.+\.yjgbg\.com}`)
+  - match: HostRegexp(`{.+\.yjgbg\.com}`)
     kind: Rule
     priority: 1
     services:
     - name: kourier-internal
       kind: Service
       namespace: kourier-system
-      port: http2
+      port: 80
