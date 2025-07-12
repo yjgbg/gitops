@@ -22,10 +22,6 @@ spec:
   routes:
   - kind: Rule
     match: HostRegexp(`^traefik\.yjgbg\.com$`)
-    observability:
-      accesslogs: true
-      metrics: true
-      tracing: true
     services:
     - name: traefik-traefik
       kind: Service

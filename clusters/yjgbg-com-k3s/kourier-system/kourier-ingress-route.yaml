@@ -10,10 +10,6 @@ spec:
   - match: HostRegexp(`^.+\.yjgbg\.com$`)
     kind: Rule
     priority: 1
-    observability:
-      accesslogs: true
-      metrics: true
-      tracing: true
     services:
     - name: kourier-internal
       kind: Service
