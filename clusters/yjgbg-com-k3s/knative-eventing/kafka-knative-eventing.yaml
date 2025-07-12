@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-broker-config
+  namespace: knative-eventing
+data:
+  auth.secret.ref.name: broker-support-kafka-auth
+  # Number of topic partitions
+  default.topic.partitions: "10"
+  # Replication factor of topic messages.
+  default.topic.replication.factor: "3"
+  # A comma separated list of bootstrap servers. (It can be in or out the k8s cluster)
+  bootstrap.servers: "broker-support-kafka.knative-eventing:9092"
+  # Here is our retention.ms config
+  default.topic.config.retention.ms: "3600"
