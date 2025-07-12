@@ -1,22 +1,22 @@
-# apiVersion: sources.knative.dev/v1alpha1
-# kind: GitHubSource
-# metadata:
-#   name: githubsourcesample
-#   namespace: default
-# spec:
-#   eventTypes:
-#     - pull_request
-#   ownerAndRepository: yjgbg/yjgbg.github.io
-#   accessToken:
-#     secretKeyRef:
-#       name: githubsecret
-#       key: accessToken
-#   secretToken:
-#     secretKeyRef:
-#       name: githubsecret
-#       key: secretToken
-#   sink:
-#     ref:
-#       apiVersion: serving.knative.dev/v1
-#       kind: Service
-#       name: github-message-dumper
+apiVersion: sources.knative.dev/v1alpha1
+kind: GitHubSource
+metadata:
+  name: githubsourcesample
+  namespace: default
+spec:
+  eventTypes:
+    - pull_request
+  ownerAndRepository: yjgbg/yjgbg.github.io
+  accessToken:
+    secretKeyRef:
+      name: githubsecret
+      key: accessToken
+  secretToken:
+    secretKeyRef:
+      name: githubsecret
+      key: secretToken
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: github-message-dumper
