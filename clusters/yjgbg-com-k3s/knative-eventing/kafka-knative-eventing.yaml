@@ -10,6 +10,6 @@ data:
   # Replication factor of topic messages.
   default.topic.replication.factor: "3"
   # A comma separated list of bootstrap servers. (It can be in or out the k8s cluster)
-  bootstrap.servers: "broker-support-kafka.knative-eventing:9092"
+  bootstrap.servers: "broker-support-kafka-pods.knative-eventing:9092"
   # Here is our retention.ms config
   default.topic.config.retention.ms: "3600"
