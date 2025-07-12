@@ -14,4 +14,4 @@ spec:
         storage: 20Gi
     storageClassName: local-path
   storageType: Durable
-  deletionPolicy: DoNotTerminate
+  deletionPolicy: WipeOut
