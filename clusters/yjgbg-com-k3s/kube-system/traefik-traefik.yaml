@@ -20,9 +20,12 @@ spec:
   entryPoints:
   - web
   routes:
-  - match: Host(`traefik.yjgbg.com`)
-    kind: Rule
-    priority: 2
+  - kind: Rule
+    match: Host(`traefik.yjgbg.com`)
+    observability:
+      accesslogs: true
+      metrics: true
+      tracing: true
     services:
     - name: traefik-traefik
       kind: Service
