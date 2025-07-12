@@ -21,7 +21,7 @@ spec:
   - web
   routes:
   - kind: Rule
-    match: Host(`traefik.yjgbg.com`)
+    match: HostRegexp(`^traefik\.yjgbg\.com$`)
     observability:
       accesslogs: true
       metrics: true
