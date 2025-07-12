@@ -21,9 +21,7 @@ spec:
   - web
   routes:
   - kind: Rule
-    match: HostRegexp(`^traefik\.yjgbg\.com$`)
+    match: Host(`traefik.yjgbg.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
     services:
-    - name: traefik-traefik
-      kind: Service
-      namespace: kube-system
-      port: 8080
+    - kind: TraefikService
+      name: api@internal
