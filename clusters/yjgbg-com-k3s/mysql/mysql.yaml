@@ -18,4 +18,4 @@ spec:
         storage: 10Gi
     storageClassName: nfs-client
   storageType: Durable
-  version: 8.0.32
+  version: 9.1.0
