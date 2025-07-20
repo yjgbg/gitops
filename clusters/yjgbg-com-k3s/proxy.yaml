@@ -13,13 +13,15 @@ spec:
   template:
     spec:
       containers:
-      - image: docker.m.daocloud.io/djfaze/port-forward:latest
+      - image: docker.io/marcnuri/port-forward:latest
         name: phpmyadmin
         env:
         - name: REMOTE_PORT
           value: '6443'
         - name: REMOTE_HOST
           value: '192.168.31.200'
+        - name: LOCAL_PORT
+          value: 80
         ports:
         - containerPort: 80
           protocol: TCP
