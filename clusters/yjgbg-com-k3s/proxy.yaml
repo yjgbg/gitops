@@ -38,9 +38,7 @@ spec:
   - host: kubectl.yjgbg.com
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
+      - backend:
           service:
             name: kubectl-external
             port:
