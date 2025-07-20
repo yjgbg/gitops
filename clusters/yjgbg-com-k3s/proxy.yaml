@@ -13,7 +13,7 @@ spec:
   template:
     spec:
       containers:
-      - image: docker.m.daocloud.io/port-forward:latest
+      - image: docker.m.daocloud.io/djfaze/port-forward:latest
         name: phpmyadmin
         env:
         - name: REMOTE_PORT
