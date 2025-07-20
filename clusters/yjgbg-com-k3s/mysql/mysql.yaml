@@ -36,7 +36,7 @@ spec:
         - name: PMA_HOST
           value: mysql-demo-pods
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           protocol: TCP
         readinessProbe:
           successThreshold: 1
