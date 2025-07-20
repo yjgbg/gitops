@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - image: docker.io/marcnuri/port-forward:latest
-        name: phpmyadmin
+        name: port-forward
+        imagePullPolicy: IfNotPresent
         env:
         - name: REMOTE_PORT
           value: '6443'
