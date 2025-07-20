@@ -17,9 +17,9 @@ spec:
         name: phpmyadmin
         env:
         - name: REMOTE_PORT
-          value: 6443
+          value: '6443'
         - name: REMOTE_HOST
-          value: 192.168.31.200
+          value: '192.168.31.200'
         ports:
         - containerPort: 80
           protocol: TCP
