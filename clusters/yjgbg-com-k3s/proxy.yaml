@@ -33,12 +33,14 @@ metadata:
   name: kubectl-external
   namespace: kubectl
 spec:
+  ingressClassName: traefik
   rules:
-    - host: kubectl.yjgbg.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              serviceName: kubectl-external
-              servicePort: 6443
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubectl-external
+            port:
+              number: 6443
