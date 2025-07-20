@@ -38,6 +38,7 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
               serviceName: kubectl-external
               servicePort: 6443
