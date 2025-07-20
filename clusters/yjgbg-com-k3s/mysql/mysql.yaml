@@ -19,3 +19,30 @@ spec:
     storageClassName: nfs-client
   storageType: Durable
   version: 9.1.0
+---
+# docker run --name phpmyadmin -d -e PMA_HOST=dbhost -p 8080:80 phpmyadmin
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: index
+  namespace: mysql
+spec:
+  template:
+    spec:
+      containers:
+      - image: docker.m.daocloud.io/phpmyadmin:latest
+        name: phpmyadmin
+        env:
+        - name: PMA_HOST
+          value: mysql-demo-pods
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: 
+          requests:
+            cpu: 200m
+            memory: 200m
