@@ -3,43 +3,31 @@ kind: Namespace
 metadata:
   name: kubectl
 ---
-apiVersion: v1
+# docker run -e REMOTE_HOST=10.32.0.1 -e REMOTE_PORT=27017 -p 8080:80 port-forward
+apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: kubectl-external
+  name: index
   namespace: kubectl
 spec:
-  ports:
-    - protocol: TCP
-      port: 6443
-      targetPort: 6443
-  clusterIP: None
-  type: ClusterIP
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: kubectl-external
-  namespace: kubectl
-subsets:
-  - addresses:
-      - ip: 192.168.31.200
-    ports:
-      - port: 6443
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: kubectl-external
-  namespace: kubectl
-spec:
-  ingressClassName: traefik
-  rules:
-  - host: kubectl.yjgbg.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: kubectl-external
-            port:
-              number: 6443
+  template:
+    spec:
+      containers:
+      - image: docker.m.daocloud.io/port-forward:latest
+        name: phpmyadmin
+        env:
+        - name: REMOTE_PORT
+          value: 6443
+        - name: REMOTE_HOST
+          value: 192.168.31.200
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: 
+          requests:
+            cpu: 200m
+            memory: 200m
