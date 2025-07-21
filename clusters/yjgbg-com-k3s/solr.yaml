@@ -39,4 +39,4 @@ spec:
   version: 9.8.0
   zookeeperRef:
     name: zoo-solr
-    namespace: nfs-client
+    namespace: solr
