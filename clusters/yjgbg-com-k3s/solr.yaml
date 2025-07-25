@@ -10,7 +10,7 @@ metadata:
   namespace: solr
 spec:
   version: 3.9.1
-  replicas: 3
+  replicas: 1
   deletionPolicy: Delete
   adminServerPort: 8080
   storage:
