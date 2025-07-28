@@ -31,6 +31,7 @@ spec:
     metadata:
       annotations:
         networking.knative.dev/server-httpoption: "enabled"
+        autoscaling.knative.dev/window: "3600s"
     spec:
       containers:
       - image: docker.m.daocloud.io/phpmyadmin:latest
