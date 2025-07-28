@@ -28,6 +28,9 @@ metadata:
   namespace: mysql
 spec:
   template:
+    metadata:
+      annotations:
+        networking.knative.dev/server-httpoption: "enabled"
     spec:
       containers:
       - image: docker.m.daocloud.io/phpmyadmin:latest
