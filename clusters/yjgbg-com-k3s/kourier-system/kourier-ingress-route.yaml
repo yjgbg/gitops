@@ -15,3 +15,17 @@ spec:
       kind: Service
       namespace: kourier-system
       port: 80
+    middlewares:
+    - name: https-header-forwarder
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: https-header-forwarder
+  namespace: kourier-system
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forwarded-Proto: "https"
+      X-Forwarded-Host: "${request_host}"
+      X-Forwarded-Port: "443"
