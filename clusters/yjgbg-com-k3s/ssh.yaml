@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: echo
-        image: l1b0k/echo:20220426-75050f3
+        image: onaci/docker-http-https-echo:onaci
         ports:
         - containerPort: 80
         resources: 
