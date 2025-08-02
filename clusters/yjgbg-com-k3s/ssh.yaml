@@ -76,7 +76,7 @@ spec:
       logLevel: debug
       scopes: ["user:email"]  
       cookieDomain: ".ssh.yjgbg.com"  # 通配符作用域
-      cookieSecure: true              # 强制 HTTPS 传输
+      cookieSecure: false             # 强制 HTTPS 传输，因为https在外部做了
       whitelist:
         logins:
           - yjgbg
