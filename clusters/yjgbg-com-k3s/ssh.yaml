@@ -75,6 +75,8 @@ spec:
       # jwtSecretKey: optional_secret_key
       logLevel: debug
       scopes: ["user:email"]  
+      cookieDomain: ".ssh.yjgbg.com"  # 通配符作用域
+      cookieSecure: true              # 强制 HTTPS 传输
       whitelist:
         logins:
           - yjgbg
