@@ -74,6 +74,7 @@ spec:
       authPath: /_auth
       # jwtSecretKey: optional_secret_key
       logLevel: debug
+      scopes: ["user:email"]  
       whitelist:
         logins:
           - yjgbg
