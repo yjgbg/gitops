@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ssh
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-deployment
+  namespace: ssh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:
+      containers:
+      - name: echo
+        image: armory/echo:2.36.1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssh-service
+spec:
+  selector:
+    app: echo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ssh-ingress-route
+  namespace: ssh
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: Host(`ssh.yjgbg.com`)
+    kind: Rule
+    priority: 2
+    services:
+    - name: ssh-service
+      kind: Service
+      namespace: ssh
+      port: 80
+    # middlewares:
+    # - name: https-header-forwarder
+# ---
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: https-header-forwarder
+#   namespace: kourier-system
+# spec:
+#   headers:
+#     customRequestHeaders:
+#       X-Forwarded-Proto: "https"
+#       X-Forwarded-Host: "${request_host}"
+#       X-Forwarded-Port: "443"
