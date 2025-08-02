@@ -58,17 +58,22 @@ spec:
       kind: Service
       namespace: ssh
       port: 80
-    # middlewares:
-    # - name: https-header-forwarder
-# ---
-# apiVersion: traefik.io/v1alpha1
-# kind: Middleware
-# metadata:
-#   name: https-header-forwarder
-#   namespace: kourier-system
-# spec:
-#   headers:
-#     customRequestHeaders:
-#       X-Forwarded-Proto: "https"
-#       X-Forwarded-Host: "${request_host}"
-#       X-Forwarded-Port: "443"
+    middlewares:
+    - name: traefik-github-oauth-plugin
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-github-oauth-plugin
+  namespace: my-namespace
+spec:
+  plugin:
+    traefik-github-oauth-plugin:
+      apiBaseUrl: https://ssh.yjgbg.com
+      # apiSecretKey: optional_secret_key_if_not_on_the_internal_network
+      authPath: /_auth
+      # jwtSecretKey: optional_secret_key
+      logLevel: info
+      whitelist:
+        logins:
+          - yjgbg
