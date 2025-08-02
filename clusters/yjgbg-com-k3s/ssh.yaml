@@ -70,7 +70,7 @@ spec:
   plugin:
     traefik-github-oauth-plugin:
       apiBaseUrl: https://api.github.com
-      # apiSecretKey: optional_secret_key_if_not_on_the_internal_network
+      apiSecretKey: b60067c820c568dae1365c7078a3fbb975a1a786
       authPath: /_auth
       # jwtSecretKey: optional_secret_key
       logLevel: debug
