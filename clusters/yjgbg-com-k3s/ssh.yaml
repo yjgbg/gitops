@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: echo
-        image: armory/echo:2.36.1
+        image: l1b0k/echo:20220426-75050f3
         ports:
         - containerPort: 80
         resources: 
