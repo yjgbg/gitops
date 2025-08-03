@@ -41,42 +41,38 @@ spec:
       port: 80
       targetPort: 80
 ---
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: ssh-ingress-route
-  namespace: ssh
-spec:
-  entryPoints:
-  - web
-  routes:
-  - match: Host(`ssh.yjgbg.com`)
-    kind: Rule
-    priority: 2
-    services:
-    - name: ssh-service
-      kind: Service
-      namespace: ssh
-      port: 80
-    middlewares:
-    - name: traefik-github-oauth-plugin
----
+# 4. 创建 OAuth 中间件 (泛域名支持)
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: traefik-github-oauth-plugin
+  name: github-oauth
   namespace: ssh
 spec:
-  plugin:
-    traefik-github-oauth-plugin:
-      apiBaseUrl: https://api.github.com
-      apiSecretKey: b60067c820c568dae1365c7078a3fbb975a1a786
-      authPath: /_auth
-      # jwtSecretKey: optional_secret_key
-      logLevel: debug
-      scopes: ["user:email"]  
-      cookieDomain: ".ssh.yjgbg.com"  # 通配符作用域
-      cookieSecure: false             # 强制 HTTPS 传输，因为https在外部做了
-      whitelist:
-        logins:
-          - yjgbg
+  forwardAuth:
+    address: http://oauth2-proxy.oauth.svc.cluster.local:4180
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-Auth-Request-User
+      - X-Auth-Request-Email
+      - Authorization
+    authRequestHeaders:
+      X-Forwarded-Proto: "https"  # 强制HTTPS协议头
+      X-Forwarded-Host: "{Host}"  # 动态传递请求域名
+---
+# 6. 保护应用示例 (替换your-app)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: protected-app
+  namespace: ssh
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`ssh.yjgbg.com`)  # 泛域名匹配
+    kind: Rule
+    services:
+    - name: ssh-service  # 替换为实际服务
+      port: 80
+    middlewares:
+    - name: github-oauth

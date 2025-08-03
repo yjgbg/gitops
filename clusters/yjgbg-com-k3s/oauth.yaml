@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: oauth
+---
+# 2. 部署 oauth2-proxy (支持泛域名)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy
+  namespace: oauth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+      - name: oauth2-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy:v7.5.1
+        args:
+          - --provider=github
+          - --client-id=Ov23ligc7DliGGZGvtJn
+          - --redirect-url=https://oauth.yjgbg.com/oauth2/callback
+          - --force-https=true
+          - --cookie-secure=false
+          - --set-xauthrequest=true
+          - --reverse-proxy=true
+          - --trusted-ip=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          - --skip-auth-regex="^/healthz$"
+        env:
+          - name: OAUTH2_PROXY_COOKIE_SECRET
+            valueFrom: {secretKeyRef: {name: oauth2-secrets, key: cookie-secret}}
+          - name: OAUTH2_PROXY_CLIENT_SECRET
+            valueFrom: {secretKeyRef: {name: oauth2-secrets, key: client-secret}}
+        ports:
+        - containerPort: 4180
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http
+---
+# 3. 创建 oauth2-proxy Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2-proxy
+  namespace: oauth
+spec:
+  ports:
+  - name: http
+    port: 4180
+    targetPort: http
+  selector:
+    app: oauth2-proxy
+---
+# 5. 部署 OAuth 回调端点 (固定域名)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: oauth-callback
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`oauth.yjgbg.com`) && PathPrefix(`/oauth2`)
+    kind: Rule
+    services:
+    - name: oauth2-proxy
+      port: 4180
