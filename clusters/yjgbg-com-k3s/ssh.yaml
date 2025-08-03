@@ -51,7 +51,10 @@ spec:
   forwardAuth:
     address: http://oauth2-proxy.oauth.svc.cluster.local:4180
     trustForwardHeader: true
-    authResponseHeaders: [X-Auth-Request-User,X-Auth-Request-Email,Authorization]
+    authResponseHeaders:
+      - "X-Auth-Request-User"
+      - "X-Auth-Request-Email"
+      - "Authorization"
     authRequestHeaders:
       X-Forwarded-Proto: "https"  # 强制HTTPS协议头
       X-Forwarded-Host: "{Host}"  # 动态传递请求域名
