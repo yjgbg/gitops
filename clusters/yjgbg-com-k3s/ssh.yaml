@@ -56,8 +56,9 @@ spec:
       - "X-Auth-Request-Email"
       - "Authorization"
     authRequestHeaders:
-      X-Forwarded-Proto: "https"  # 强制HTTPS协议头
-      X-Forwarded-Host: "{Host}"  # 动态传递请求域名
+      - Host
+      - X-Forwarded-Proto
+      - X-Forwarded-Host
 ---
 # 6. 保护应用示例 (替换your-app)
 apiVersion: traefik.io/v1alpha1

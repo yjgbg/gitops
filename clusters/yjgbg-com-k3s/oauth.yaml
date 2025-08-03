@@ -27,11 +27,13 @@ spec:
           - --client-id=Ov23ligc7DliGGZGvtJn
           - --redirect-url=https://oauth.yjgbg.com/oauth2/callback
           - --force-https=true
+          - --cookie-domain=.yjgbg.com
           - --cookie-secure=false
           - --set-xauthrequest=true
           - --reverse-proxy=true
           - --trusted-ip=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
           - --skip-auth-regex="^/healthz$"
+          - --whitelist-domain=.yjgbg.com
         env:
           - name: OAUTH2_PROXY_COOKIE_SECRET
             valueFrom: {secretKeyRef: {name: oauth2-secrets, key: cookie-secret}}
