@@ -75,5 +75,5 @@ spec:
     services:
     - name: ssh-service  # 替换为实际服务
       port: 80
-    middlewares:
-    - name: github-oauth
+    # middlewares:
+    # - name: github-oauth
