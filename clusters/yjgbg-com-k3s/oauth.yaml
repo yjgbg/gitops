@@ -55,9 +55,8 @@ metadata:
   namespace: oauth
 spec:
   ports:
-  - name: http
-    port: 4180
-    targetPort: http
+  - port: 4180
+    targetPort: 4180
   selector:
     app: oauth2-proxy
 ---
