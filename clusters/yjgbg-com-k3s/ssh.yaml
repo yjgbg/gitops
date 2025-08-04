@@ -65,6 +65,7 @@ spec:
       - X-Forwarded-Proto
       - X-Forwarded-Host
       - X-Forwarded-Uri
+      - X-Request-Uri
       - Cookie
 ---
 # 6. 保护应用示例 (替换your-app)
