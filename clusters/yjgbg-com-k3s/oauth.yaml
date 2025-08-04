@@ -34,7 +34,6 @@ spec:
           - --cookie-secure=true        # 外部有HTTPS，启用安全Cookie
           - --set-xauthrequest=true
           - --skip-provider-button=true
-          - --logging-level=debug
         env:
           - name: OAUTH2_PROXY_CLIENT_SECRET
             valueFrom:
