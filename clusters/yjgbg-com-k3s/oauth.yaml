@@ -33,6 +33,7 @@ spec:
           - --cookie-domain=.yjgbg.com  # 跨子域共享Cookie
           - --cookie-secure=true        # 外部有HTTPS，启用安全Cookie
           - --set-xauthrequest=true
+          - --skip-provider-button=true
         env:
           - name: OAUTH2_PROXY_CLIENT_SECRET
             valueFrom:
