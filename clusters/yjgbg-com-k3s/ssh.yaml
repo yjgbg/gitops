@@ -59,6 +59,10 @@ spec:
       - Host
       - X-Forwarded-Proto
       - X-Forwarded-Host
+      - X-Auth-Request-Redirect
+      - X-Forwarded-Uri
+      - Set-Cookie
+      - Authorization
 ---
 # 6. 保护应用示例 (替换your-app)
 apiVersion: traefik.io/v1alpha1
