@@ -33,7 +33,7 @@ spec:
       - image: docker.m.daocloud.io/rustfs/rustfs:latest
         name: rustfs
         ports:
-        - containerPort: 9000
+        - containerPort: 9001
           protocol: TCP
         volumeMounts:
         - mountPath: "/data"
@@ -48,7 +48,7 @@ spec:
             memory: 200m
         env:
           - name: RUSTFS_CONSOLE_ENABLE
-            value: "false"
+            value: "true"
           - name: RUSTFS_SERVER_DOMAINS
             value: "s3.yjgbg.com"
         args: ["/data"]
