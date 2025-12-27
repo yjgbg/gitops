@@ -13,7 +13,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 20Gi
   storageClassName: local-path-retain
 ---
 # ksvc

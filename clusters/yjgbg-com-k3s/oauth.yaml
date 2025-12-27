@@ -46,7 +46,7 @@ spec:
                 name: oauth2-secrets
                 key: cookie-secret
           - name: ALL_PROXY
-            value: "socks5://192.168.31.200:7890"
+            value: "socks5://link-intel.local:7890"
           - name: NO_PROXY
             value: "cluster.local,.svc,.svc.cluster.local,10.0.0.0/8"
         ports:
