@@ -3,29 +3,23 @@ kind: Namespace
 metadata:
   name: postgres
 ---
-apiVersion: kubedb.com/v1
-kind: Postgres
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
 metadata:
   name: postgres
   namespace: postgres
 spec:
-  deletionPolicy: Delete
+  instances: 3
   storage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 10Gi
-    storageClassName: local-path-retain
-  storageType: Durable
-  version: "17.5"
+    storageClass: local-path-retain
+    size: 1Gi
 ---
 # docker run --name phpmyadmin -d -e PMA_HOST=dbhost -p 8080:80 phpmyadmin
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: index
-  namespace: mysql
+  namespace: postgres
 spec:
   template:
     metadata:
