@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgres
+---
+apiVersion: kubedb.com/v1
+kind: Postgres
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  deletionPolicy: Delete
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: local-path-retain
+  storageType: Durable
+  version: "17.5"
+---
+# docker run --name phpmyadmin -d -e PMA_HOST=dbhost -p 8080:80 phpmyadmin
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: index
+  namespace: mysql
+spec:
+  template:
+    metadata:
+      annotations:
+        networking.knative.dev/server-httpoption: "enabled"
+        autoscaling.knative.dev/window: "600s"
+    spec:
+      containers:
+      - image: docker.m.daocloud.io/phpmyadmin:latest
+        name: phpmyadmin
+        env:
+        - name: PMA_HOST
+          value: postgres-pods
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: 
+          requests:
+            cpu: 100m
+            memory: 100m
