@@ -4,3 +4,5 @@ metadata:
   name: local-path-retain
 provisioner: rancher.io/local-path
 reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
