@@ -40,6 +40,11 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
+        readinessProbe:
+          successThreshold: 1
+          httpGet:
+            path: "/"
+            port: 8080
         resources: 
           requests:
             cpu: 200m
