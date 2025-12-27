@@ -48,7 +48,7 @@ spec:
           requests:
             cpu: 200m
             memory: 200m
-        envs:
+        env:
           - name: RUSTFS_CONSOLE_ENABLE
             value: "false"
           - name: RUSTFS_SERVER_DOMAINS
