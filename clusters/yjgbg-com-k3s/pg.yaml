@@ -28,13 +28,17 @@ spec:
         autoscaling.knative.dev/window: "600s"
     spec:
       containers:
-      - image: docker.m.daocloud.io/phpmyadmin:latest
-        name: phpmyadmin
+      - image: docker.io/elestio/pgadmin:REL-9_8
+        name: pgadmin
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - secretRef:
+            name: pgadmin
         env:
-        - name: PMA_HOST
-          value: postgres-pods
+        - name: PGADMIN_LISTEN_PORT
+          value: "8080"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP
         readinessProbe:
           successThreshold: 1
@@ -42,5 +46,5 @@ spec:
             port: 0
         resources: 
           requests:
-            cpu: 100m
-            memory: 100m
+            cpu: 200m
+            memory: 200m
