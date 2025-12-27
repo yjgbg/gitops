@@ -33,7 +33,7 @@ spec:
       - image: docker.m.daocloud.io/rustfs/rustfs:latest
         name: rustfs
         ports:
-        - containerPort: 9001
+        - containerPort: 9000
           protocol: TCP
         volumeMounts:
         - mountPath: "/data"
