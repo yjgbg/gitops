@@ -48,9 +48,9 @@ spec:
           requests:
             cpu: 200m
             memory: 200m
-        env:
+        envs:
           - name: RUSTFS_CONSOLE_ENABLE
-            value: false
+            value: "false"
           - name: RUSTFS_SERVER_DOMAINS
             value: "s3.yjgbg.com"
         args: ["/data"]
