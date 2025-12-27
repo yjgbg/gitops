@@ -30,7 +30,7 @@ spec:
         persistentVolumeClaim:
           claimName: rustfs-data
       containers:
-      - image: rustfs/rustfs:latest
+      - image: docker.m.daocloud.io/rustfs/rustfs:latest
         name: rustfs
         ports:
         - containerPort: 9000
