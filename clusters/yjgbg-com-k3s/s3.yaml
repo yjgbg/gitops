@@ -46,6 +46,9 @@ spec:
           requests:
             cpu: 200m
             memory: 200m
+        envFrom:
+        - secretRef:
+            name: rustfs-aksk
         env:
           - name: RUSTFS_CONSOLE_ENABLE
             value: "true"
