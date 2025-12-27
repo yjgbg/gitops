@@ -28,7 +28,7 @@ spec:
         autoscaling.knative.dev/window: "600s"
     spec:
       containers:
-      - image: docker.io/elestio/pgadmin:REL-9_8
+      - image: docker.1ms.run/elestio/pgadmin:REL-9_8
         name: pgadmin
         imagePullPolicy: IfNotPresent
         envFrom:
