@@ -53,4 +53,4 @@ spec:
             value: false
           - name: RUSTFS_SERVER_DOMAINS
             value: "s3.yjgbg.com"
-        args: "/data"
+        args: ["/data"]
