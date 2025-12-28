@@ -13,7 +13,29 @@ spec:
   storage:
     storageClass: local-path-retain
     size: 1Gi
+  managed:
+    roles:
+      - name: gitea
+        login: true
+        # 引用包含密码的 Secret
+        passwordSecret:
+          name: gitea
+        # 可选：设置权限继承
+        # inRoles:
+        #   - pg_read_all_data
 ---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: db-gitea
+  namespace: postgres
+spec:
+  name: db-gitea
+  ensure: present
+  cluster: 
+    name: postgres
+  owner: gitea
+  connectionLimit: 10
 # docker run --name phpmyadmin -d -e PMA_HOST=dbhost -p 8080:80 phpmyadmin
 # apiVersion: serving.knative.dev/v1
 # kind: Service

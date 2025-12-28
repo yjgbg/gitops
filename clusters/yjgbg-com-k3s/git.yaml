@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: git
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitea-data
+  namespace: git
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: local-path-retain
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: index
+  namespace: git
+spec:
+  template:
+    metadata:
+      annotations:
+        networking.knative.dev/server-httpoption: "enabled"
+        autoscaling.knative.dev/window: "300s"
+    spec:
+      volumes:
+      - name: gitea-data
+        persistentVolumeClaim:
+          claimName: gitea-data
+      containers:
+      - image: docker.gitea.com/gitea:1.25.3-rootless
+        name: gitea
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: gitea
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        volumeMounts:
+        - mountPath: "/var/lib/gitea"
+          name: gitea-data
+        resources: 
+          requests:
+            cpu: 200m
+            memory: 200m
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 3000
+# services:
+#   server:
+#     image: docker.gitea.com/gitea:1.25.3-rootless
+#     restart: always
+#     volumes:
+#       - ./data:/var/lib/gitea
+#       - ./config:/etc/gitea
+#       - /etc/timezone:/etc/timezone:ro
+#       - /etc/localtime:/etc/localtime:ro
+#     ports:
+#       - "3000:3000"
+#       - "2222:2222"
