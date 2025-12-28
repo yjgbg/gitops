@@ -16,6 +16,19 @@ spec:
       storage: 20Gi
   storageClassName: local-path-retain
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitea-config
+  namespace: git
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+  storageClassName: local-path-retain
+---
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
@@ -23,15 +36,14 @@ metadata:
   namespace: git
 spec:
   template:
-    metadata:
-      annotations:
-        networking.knative.dev/server-httpoption: "enabled"
-        autoscaling.knative.dev/window: "300s"
     spec:
       volumes:
       - name: gitea-data
         persistentVolumeClaim:
           claimName: gitea-data
+      - name: gitea-config
+        persistentVolumeClaim:
+          claimName: gitea-config
       containers:
       - image: docker.gitea.com/gitea:1.25.3-rootless
         name: gitea
@@ -45,10 +57,13 @@ spec:
         volumeMounts:
         - mountPath: "/var/lib/gitea"
           name: gitea-data
+        volumeMounts:
+        - mountPath: "/etc/gitea"
+          name: gitea-data
         resources: 
           requests:
-            cpu: 200m
-            memory: 200m
+            cpu: 1000m
+            memory: 1000m
         readinessProbe:
           successThreshold: 1
           tcpSocket:
