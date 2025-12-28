@@ -57,7 +57,6 @@ spec:
         volumeMounts:
         - mountPath: "/var/lib/gitea"
           name: gitea-data
-        volumeMounts:
         - mountPath: "/etc/gitea"
           name: gitea-config
         resources: 
