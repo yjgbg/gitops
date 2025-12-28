@@ -59,7 +59,7 @@ spec:
           name: gitea-data
         volumeMounts:
         - mountPath: "/etc/gitea"
-          name: gitea-data
+          name: gitea-config
         resources: 
           requests:
             cpu: 1000m
